@@ -2,7 +2,7 @@
 title: 'Week 4: Hypothesis Testing for One/Two Samples'
 subtitle: 'Or, (Theoretical) Populations VS (Actual) Samples'
 author: "Scott Schwartz"
-date: "May 18, 2021"
+date: "Oct 3, 2022"
 output:
   beamer_presentation:
     theme: Pittsburgh
@@ -323,7 +323,7 @@ download.file(url = "https://media.makeameme.org/created/wow-did-that-828bf72040
 
 ## (Theoretical) Populations VS (Actual) Samples
 
-### The ***Sampling Distribution*** VS $\bar x$ the Sample `mean()` statistic \textcolor{gray}{(lower case)} 
+### The ***Sampling Distribution*** VS $\bar x_{n=50}$ the Sample `mean()` statistic \textcolor{gray}{(lower case)} 
 
 ```{r, echo=FALSE, fig.width=12, fig.height=5}
 p <- c(.05,.23,.28,.32,.40,.48,.52,.6,.68,.72,.76,.95)
@@ -348,7 +348,7 @@ gridExtra::grid.arrange(grobs=ggplots, nrow=3)
 
 ## (Theoretical) Populations VS (Actual) Samples
 
-### The ***Sampling Distribution*** VS $\bar x$ the Sample `mean()` statistic \textcolor{gray}{(lower case)} 
+### The ***Sampling Distribution*** VS $\bar x_{n=250}$ the Sample `mean()` statistic \textcolor{gray}{(lower case)} 
 
 ```{r, echo=FALSE, fig.width=12, fig.height=5}
 p <- c(.05,.23,.28,.32,.40,.48,.52,.6,.68,.72,.76,.95)
@@ -373,7 +373,7 @@ gridExtra::grid.arrange(grobs=ggplots, nrow=3)
 
 ## (Theoretical) Populations VS (Actual) Samples
 
-### The ***Sampling Distribution*** VS $\bar x$ the Sample `mean()` statistic \textcolor{gray}{(lower case)} 
+### The ***Sampling Distribution*** VS $\bar x_{n=25}$ the Sample `mean()` statistic \textcolor{gray}{(lower case)} 
 
 ```{r, echo=FALSE, fig.width=12, fig.height=5}
 p <- c(.05,.23,.28,.32,.40,.48,.52,.6,.68,.72,.76,.95)
@@ -458,11 +458,16 @@ $$\text{or just}\; \textcolor{red}{H_1/H_A: H_0 \text{ is }\texttt{FALSE}}$$
 ::::
 :::
 
+\vspace{.2cm}
+
+\textcolor{gray}{What else do we need to know to make the sampling distribution?}
+
 ### p-value
 
 The probability \textcolor{gray}{[\emph{which can be approximated}]} of observing a test statistic that is
 
 *as or more extreme* than the one we got **if the NULL Hypothesis is actually `TRUE`** 
+
 
 ## (Theoretical) Populations VS (Actual) Samples
 
@@ -500,6 +505,7 @@ tibble("xbar"=simulated_xbars) %>%
 # color hack: https://stackoverflow.com/questions/37660694/add-legend-to-geom-vline
 ```
 
+\textcolor{gray}{What else do we need to know to make the sampling distribution?}
 
 ## DO NOT MESS THIS UP (or else)
 
@@ -701,7 +707,7 @@ $\longleftarrow$ Rodin's sculpture [The Kiss](https://en.wikipedia.org/wiki/The_
 :::
 
 
-## Hypothesis Testing
+## [Formal] Hypothesis Testing [the only kind]
 
 1. State the **NULL Hypothesis** $H_0: p=0.5$ for the *population* [which is?]
 \vspace{-.15cm}
@@ -709,7 +715,7 @@ $\longleftarrow$ Rodin's sculpture [The Kiss](https://en.wikipedia.org/wiki/The_
     - Assume the value of the **parameter** of the **NULL Hypothesis** is `TRUE`
     - The **ALTERNATIVE Hypothesis** is just that the NULL Hypothesis is `FALSE`
 
-2. Set an $\boldsymbol \alpha$**-significance level** which specifies a "$H_0$ rejection rule"
+2. Set an $\boldsymbol \alpha$**-significance level** [$\alpha = 0.05$?] which specifies a "$H_0$ rejection rule"
 \vspace{-.15cm}
 
     - You will "Reject $H_0$ at the $\alpha$-significance level" for **p-values** less than $\alpha$
@@ -718,7 +724,7 @@ $\longleftarrow$ Rodin's sculpture [The Kiss](https://en.wikipedia.org/wiki/The_
 3. For the sample size $n$ of the observed **test statistic**
 \vspace{-.15cm}
 
-    - Simulate the **Sampling Distribution** asumming the **NULL Hypothesis** is `TRUE`
+    - Simulate the **Sampling Distribution** assuming the **NULL Hypothesis** is `TRUE`
 
 4. Compute the **p-value** of the **observed test statistic**
 \vspace{-.15cm}
@@ -740,16 +746,22 @@ download.file(url = "https://vipinajayakumar.com/post/t-test/banner.jpg",
 ```
 
 
-|              | **Innocent** | **Guilty**    | 
-|--------------|--------------|---------------|
-|**Convicted** | $\times$ Oops! Type I | $\checkmark$ Gotcha! Justice! |
-|**Acquitted** | $\checkmark$ Justice! Freedome! | $\times$ Oops! Type II |
-
-\vspace{-.5cm}
-
 | |
 |-|
 | ![](images/preg.jpg) |
+
+
+
+## Type I and II Errors in Hypothesis Testing
+
+
+\LARGE 
+
+|              | **Innocent** | **Guilty**    | 
+|--------------|--------------|---------------|
+|**Convicted** | $\times$ Oops! Type I | $\checkmark$ Gotcha! Justice! |
+|**Acquitted** | $\checkmark$ Justice! Freedom! | $\times$ Oops! Type II |
+
 
 ## Type I and II Errors in Hypothesis Testing
 
@@ -820,7 +832,7 @@ download.file(url = "https://www.peelpolice.ca/en/in-the-community/resources/Ima
 
 1. \normalsize [$\checkmark$] $\displaystyle \textcolor{blue}{H_0: p_1 = p_2} \;\; \Longrightarrow \;\; \textcolor{blue}{H_0: p_1 - p_2 = 0}$
 
-2. [$\checkmark$] Choose **significance level** $\boldsymbol \alpha \; \mathbf{= 0.5}$
+2. [$\checkmark$] Choose **significance level** $\boldsymbol \alpha \; \mathbf{= 0.05}$
 
 3. [$\checkmark$] Use ***observed test statistic*** $\bar x_1 - \bar x_2$ based on $n_1$ and $n_2$ samples 
 
@@ -858,7 +870,7 @@ tibble("xbar1-xbar2"=permutation_test_statistics) %>%
   ggplot(aes(x=`xbar1-xbar2`)) + geom_histogram(bins=18) +
   xlim(-.5,.5) + geom_vline(xintercept=observed_test_statistic) +
   ggtitle(TeX(paste("Sampling Distribution of $\\bar{x}_1 - \\bar{x}_2$ for",
-                    ns, "if $H_0: p_1=p_2$ is TRUE")))
+                    ns, "if $H_0: \\; p_1=p_2$ is TRUE")))
 ```
 
 ## More General Hypothesis Testing
@@ -900,7 +912,7 @@ tibble("xbar"=simulated_xbars) %>%
   ggplot(aes(x=xbar)) + geom_histogram() +
   geom_vline(xintercept=mean(x1)) +
   ggtitle(TeX(paste("Sampling Distribution of $\\bar{x}_1$ for n_1 =",
-                    n1, "if $H_0: \\mu=0$ is TRUE")))
+                    n1, "if $H_0: \\; \\mu=0$ is TRUE")))
 ```
 
 ::::
@@ -923,7 +935,7 @@ tibble("xbar1-xbar2"=permutation_test_statistics) %>%
   ggplot(aes(x=`xbar1-xbar2`)) + geom_histogram() +
   geom_vline(xintercept=mean(x1)-mean(x2)) +
   labs(title =TeX(paste("Sampling Distribution of $\\bar{x}_1-\\bar{x}_2$ for",
-                        ns, "if $H_0: \\mu_0=\\mu_1$ is TRUE")))
+                        ns, "if $H_0: \\; \\mu_0=\\mu_1$ is TRUE")))
 ```
 
 ::::
@@ -997,7 +1009,7 @@ tibble("xvar"=simulated_xvars) %>%
   ggplot(aes(x=xvar)) + geom_histogram() +
   geom_vline(xintercept=var(x1)) +
   ggtitle(TeX(paste("Sampling Distribution of var(x1) for n1 =",
-                    n1, "if $H_0: \\sigma^2=1$ is TRUE")))
+                    n1, "if $H_0: \\; \\sigma^2=1$ is TRUE")))
 ```
 
 ::::
@@ -1020,7 +1032,7 @@ tibble("xvar1-xvar2"=permutation_test_statistics) %>%
   ggplot(aes(x=`xvar1-xvar2`)) + geom_histogram() +
   geom_vline(xintercept=var(x1)-var(x2)) +
   ggtitle(TeX(paste("Sampling Distribution of var(x1)$ - $var(x2) for",
-                    ns, "if $H_0: \\sigma^2_1=\\sigma^2_2$ is TRUE")))
+                    ns, "if $H_0: \\; \\sigma^2_1=\\sigma^2_2$ is TRUE")))
 ```
 
 ::::
